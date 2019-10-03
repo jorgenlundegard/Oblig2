@@ -41,10 +41,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int antall;            // antall noder i listen
     private int endringer;         // antall endringer i listen
 
-    public DobbeltLenketListe() { throw new NotImplementedException(); }
+    public DobbeltLenketListe() {
+
+    }
 
     public DobbeltLenketListe(T[] a) {
-        throw new NotImplementedException();
+
     }
 
     public Liste<T> subliste(int fra, int til){
@@ -53,13 +55,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int antall() {
-
-        throw new NotImplementedException();
+        return antall;
     }
 
     @Override
     public boolean tom() {
-        throw new NotImplementedException();
+        if(antall==0){return true;}
+        return false;
     }
 
     @Override
