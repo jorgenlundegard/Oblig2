@@ -46,7 +46,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
+        if(a.length==1){
+            new Node<>(a[0]); //egen konstruktør i Node hvis listen kun har en verdi.
+        }else {
+            for (int i = 0; i < a.length; i++) {
+                if (i == 0) {
+                    new Node<>(a[i], null, new Node<>(a[i+1]));
+                }else if(i!=a.length - 1){
+                    //new Node<>(a[i], new Node<>(a[i-1]), )
+                }
 
+
+            }
+        }
     }
 
     public Liste<T> subliste(int fra, int til){
