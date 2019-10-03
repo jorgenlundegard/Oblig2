@@ -51,12 +51,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }else {
             for (int i = 0; i < a.length; i++) {
                 if (i == 0) {
-                    new Node<>(a[i], null, new Node<>(a[i+1]));
+                    hode = new Node<>(a[i], null, new Node<>(a[i+1]));
                 }else if(i!=a.length - 1){
-                    //new Node<>(a[i], new Node<>(a[i-1]), )
+                    new Node<>(a[i], new Node<>(a[i-1]), new Node<>(a[i+1]));
+                }else{
+                    hale = new Node<>(a[i], new Node<>(a[i-1]), null);
                 }
-
-
             }
         }
     }
