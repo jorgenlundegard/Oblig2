@@ -63,7 +63,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 hale = hode;
                 antall ++;
             }
-        }else { //hvis tabellen har flere enn ett ikke-null elementer gaar vi videre.
+        }else {                                                 //hvis tabellen har flere enn ett ikke-null elementer gaar vi videre.
             //setter verdi for hode, forste ikke-null element i tabellen.
             for (int i = 0; i < a.length; i++) {
                 if (a[i] != null) {
@@ -92,13 +92,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                     antall++;
                 }
             }
-            if(antall==0){ //hvis antall fortsatt er null besto tabellen kun av null elementer.
+            if(antall==0){                              //hvis antall fortsatt er null besto tabellen kun av null elementer.
                 hode = null;
                 hale = null;
-            }else if(antall==1){ //hvis antall er 1 her betyr det at tabellen hadde flere enn 1 element, men kun ett av dem var ikke-null.
+            }else if(antall==1){                        //hvis antall er 1 her betyr det at tabellen hadde flere enn 1 element, men kun ett av dem var ikke-null.
                 hale = hode;
-            }else { //setter neste peker til hale i nest siste node.
-                assert forrigeNode != null; //for aa fjerne warning, aner ikke hva det gjor.
+            }else {                                     //setter neste peker til hale i nest siste node.
+                assert forrigeNode != null;             //for aa fjerne warning, aner ikke hva det gjor.
                 forrigeNode.neste = hale;
                 assert hale != null;
                 hale.forrige = forrigeNode;
