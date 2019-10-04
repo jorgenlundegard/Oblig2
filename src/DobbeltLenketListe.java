@@ -183,12 +183,42 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
-        throw new NotImplementedException();
+        if(antall==0){return false;}
+        if(antall==1){
+            if(hode.verdi==verdi){
+                hode = null;
+                hale = null;
+                antall--;
+                return true;
+            }
+            else{return false;}
+        }
+        forrigeNode = hode;
+        while(forrigeNode!=hale){
+            if(forrigeNode.verdi==verdi){
+                try {
+                    forrigeNode.forrige.neste = forrigeNode.neste;
+                }catch (NullPointerException e){
+                    hode = hode.neste;
+                    hode.forrige = null;
+                }
+                forrigeNode.neste.forrige = forrigeNode.forrige;
+                antall--;
+                return true;
+            }
+            forrigeNode = forrigeNode.neste;
+        }
+        if(hale.verdi==verdi){
+            hale = hale.forrige;
+            hale.neste = null;
+            return true;
+        }
+        return false;
     }
 
     @Override
     public T fjern(int indeks) {
-        /*if(antall == 0){throw new IndexOutOfBoundsException("listen er tom, denne indeksen finnes ikke");}
+        if(antall == 0){throw new IndexOutOfBoundsException("listen er tom, denne indeksen finnes ikke");}
         if(indeks<0 || indeks >=antall){throw new IndexOutOfBoundsException();}
         T verdi;
         forrigeNode = hode;
@@ -196,14 +226,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             forrigeNode=forrigeNode.neste;
         }
         verdi = forrigeNode.verdi;
-        System.out.println(forrigeNode.forrige.verdi);
-        while(forrigeNode!=hale){
-            forrigeNode.forrige = forrigeNode;
-            System.out.println(forrigeNode.verdi);
+        try {
+            forrigeNode.neste.forrige = forrigeNode.forrige;
+        }catch (NullPointerException e){
+            hale = hale.forrige;
+            hale.neste = null;
         }
-        hale.forrige = hale;
-        return verdi;*/
-        throw new NotImplementedException();
+        try {
+            forrigeNode.forrige.neste = forrigeNode.neste;
+        }catch (NullPointerException e){
+            hode = hode.neste;
+            hode.forrige = null;
+        }
+        antall--;
+        return verdi;
+
     }
 
     @Override
@@ -229,19 +266,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public String omvendtString() {
-        StringBuilder str = new StringBuilder();
-        str.append("[");
+        StringBuilder omvstr = new StringBuilder();
+        omvstr.append("[");
         if(hale!=null) {
-            str.append(hale.verdi);
+            omvstr.append(hale.verdi);
         } else{return("[]");}
         forrigeNode = hale;
         while(forrigeNode.forrige!=null){
-            str.append(", ");
-            str.append(forrigeNode.forrige.verdi);
+            omvstr.append(", ");
+            omvstr.append(forrigeNode.forrige.verdi);
             forrigeNode = forrigeNode.forrige;
         }
-        str.append("]");
-        return str.toString();
+        omvstr.append("]");
+        return omvstr.toString();
     }
 
     @Override

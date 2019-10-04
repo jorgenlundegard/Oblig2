@@ -41,8 +41,15 @@ public class Oblig {
 
 
         //Oppgave 6
-        liste = new DobbeltLenketListe<>(new String[]{"A", "B", "C", "D", "E", "F", "G"});
-        System.out.println(liste.fjern(3));
+        l1 = new DobbeltLenketListe<>(new String[]{"A","B","C","D"});
+        l1.fjern("A");
+        System.out.println(l1.toString());
+        l1.fjern("B");
+        System.out.println(l1.toString());
+        l1.fjern("C");
+        System.out.println(l1.toString());
+        l1.fjern("D");
+        System.out.println(l1.toString());
     }
 
 }
