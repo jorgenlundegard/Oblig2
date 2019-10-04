@@ -44,8 +44,13 @@ public class Oblig {
         l1 = new DobbeltLenketListe<>();
         l1.leggInn("A");
         System.out.println(l1.toString());
-        l1.fjern("A");
+        l1.fjern(0);
         System.out.println(l1.toString());
+
+        l1.leggInn("A");
+
+        System.out.println(l1.toString());
+
 
 
     }

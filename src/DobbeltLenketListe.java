@@ -230,8 +230,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         try {
             forrigeNode.neste.forrige = forrigeNode.forrige;
         }catch (NullPointerException e){
-            hale = hale.forrige;
-            hale.neste = null;
+            try {
+                hale = hale.forrige;
+                hale.neste = null;
+            }catch (NullPointerException E){ //hverken forrige eller neste finnes
+                hale = null;
+                hode = null;
+                antall--;
+                return verdi;
+            }
         }
         try {
             forrigeNode.forrige.neste = forrigeNode.neste;
