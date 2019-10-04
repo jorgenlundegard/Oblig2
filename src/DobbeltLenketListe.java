@@ -38,27 +38,50 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     // instansvariabler
     private Node<T> hode;          // peker til den første i listen
     private Node<T> hale;          // peker til den siste i listen
+    private Node<T> forrigeNode;
     private int antall;            // antall noder i listen
     private int endringer;         // antall endringer i listen
+    private int hodeIndex;
+    private int haleIndex;
+    private int sisteIndex;
 
     public DobbeltLenketListe() {
 
     }
 
     public DobbeltLenketListe(T[] a) {
-        if(a.length==1){
-            new Node<>(a[0]); //egen konstruktør i Node hvis listen kun har en verdi.
-        }else {
-            for (int i = 0; i < a.length; i++) {
-                if (i == 0) {
-                    hode = new Node<>(a[i], null, new Node<>(a[i+1]));
-                }else if(i!=a.length - 1){
-                    new Node<>(a[i], new Node<>(a[i-1]), new Node<>(a[i+1]));
-                }else{
-                    hale = new Node<>(a[i], new Node<>(a[i-1]), null);
-                }
+        Objects.requireNonNull(a, "Tabellen er Null!");
+
+        //setter verdi for hode;
+        for (int i = 0; i<a.length; i++){
+            if(a[i]!=null){
+                hode = new Node<>(a[i], null, null);
+                hodeIndex = i;
+                forrigeNode = hode;
+                antall++;
+                break;
             }
         }
+        //setter verdi for hale;
+        for (int i = a.length-1; i>hodeIndex; i--){
+            if(a[i]!=null){
+                hale = new Node<>(a[i], null, null);
+                haleIndex = i;
+                antall++;
+                break;
+            }
+        }
+        //instansierer noder for resten av de ikke null elementene i listen a
+        for(int i = hodeIndex + 1; i<haleIndex; i++){
+            if(a[i]!=null){
+                assert forrigeNode != null;
+                forrigeNode.neste = new Node<>(a[i], forrigeNode, null);
+                forrigeNode = forrigeNode.neste;
+                antall++;
+            }
+        }
+        assert hale != null;
+        hale.forrige = forrigeNode;
     }
 
     public Liste<T> subliste(int fra, int til){
