@@ -37,6 +37,12 @@ public class Oblig {
             liste3.leggInn(i);
             System.out.println(liste3.toString() + "​ ​" + liste3.omvendtString());
         }
+
+
+
+        //Oppgave 6
+        liste = new DobbeltLenketListe<>(new String[]{"A", "B", "C", "D", "E", "F", "G"});
+        System.out.println(liste.fjern(3));
     }
 
 }

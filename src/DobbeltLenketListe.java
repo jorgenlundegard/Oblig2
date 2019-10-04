@@ -188,6 +188,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T fjern(int indeks) {
+        /*if(antall == 0){throw new IndexOutOfBoundsException("listen er tom, denne indeksen finnes ikke");}
+        if(indeks<0 || indeks >=antall){throw new IndexOutOfBoundsException();}
+        T verdi;
+        forrigeNode = hode;
+        for(int i = 0; i<indeks; i++){
+            forrigeNode=forrigeNode.neste;
+        }
+        verdi = forrigeNode.verdi;
+        System.out.println(forrigeNode.forrige.verdi);
+        while(forrigeNode!=hale){
+            forrigeNode.forrige = forrigeNode;
+            System.out.println(forrigeNode.verdi);
+        }
+        hale.forrige = hale;
+        return verdi;*/
         throw new NotImplementedException();
     }
 
