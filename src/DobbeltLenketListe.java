@@ -185,7 +185,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public boolean fjern(T verdi) {
         if(antall==0){return false;}
         if(antall==1){
-            if(hode.verdi==verdi){
+            if(hode.verdi.equals(verdi)){
                 hode = null;
                 hale = null;
                 antall--;
@@ -195,7 +195,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
         forrigeNode = hode;
         while(forrigeNode!=hale){
-            if(forrigeNode.verdi==verdi){
+            if(forrigeNode.verdi.equals(verdi)){
                 try {
                     forrigeNode.forrige.neste = forrigeNode.neste;
                 }catch (NullPointerException e){
@@ -208,9 +208,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
             forrigeNode = forrigeNode.neste;
         }
-        if(hale.verdi==verdi){
+        if(hale.verdi.equals(verdi)){
             hale = hale.forrige;
             hale.neste = null;
+            antall--;
             return true;
         }
         return false;
