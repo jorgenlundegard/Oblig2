@@ -51,10 +51,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public DobbeltLenketListe(T[] a) {
         Objects.requireNonNull(a, "Tabellen er Null!");
-        if(a.length==0) {
+        if(a.length==0) {                                       //Spesialtilfelle der tabellen a er tom men ikke null
             hode = null;
             hale = null;
-        }else if(a.length==1){
+        }else if(a.length==1){                                  //Spesialtilfelle der tabellen a kun har 1 element
             if(a[0]==null){
                 hode = null;
                 hale = null;
@@ -63,8 +63,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 hale = hode;
                 antall ++;
             }
-        }else {
-            //setter verdi for hode;
+        }else { //hvis tabellen har flere enn ett ikke-null elementer gaar vi videre.
+            //setter verdi for hode, forste ikke-null element i tabellen.
             for (int i = 0; i < a.length; i++) {
                 if (a[i] != null) {
                     hode = new Node<>(a[i], null, null);
@@ -74,7 +74,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                     break;
                 }
             }
-            //setter verdi for hale;
+            //setter verdi for hale, siste ikke-null element i tabellen.
             for (int i = a.length - 1; i > hodeIndex; i--) {
                 if (a[i] != null) {
                     hale = new Node<>(a[i], null, null);
@@ -83,21 +83,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                     break;
                 }
             }
-            //instansierer noder for resten av de ikke null elementene i listen a
+            //instansierer noder for resten av de ikke null elementene i tabellen a hvis de eksisterer.
             for (int i = hodeIndex + 1; i < haleIndex; i++) {
                 if (a[i] != null) {
-                    assert forrigeNode != null;
+                    assert forrigeNode != null; //noe compileren gjorde for aa fjerne warning
                     forrigeNode.neste = new Node<>(a[i], forrigeNode, null);
                     forrigeNode = forrigeNode.neste;
                     antall++;
                 }
             }
-            if(antall==0){
+            if(antall==0){ //hvis antall fortsatt er null besto tabellen kun av null elementer.
                 hode = null;
                 hale = null;
-            }else if(antall==1){
+            }else if(antall==1){ //hvis antall er 1 her betyr det at tabellen hadde flere enn 1 element, men kun ett av dem var ikke-null.
                 hale = hode;
-            }else {
+            }else { //setter neste peker til hale i nest siste node.
+                assert forrigeNode != null; //for aa fjerne warning, aner ikke hva det gjor.
                 forrigeNode.neste = hale;
                 assert hale != null;
                 hale.forrige = forrigeNode;
@@ -110,27 +111,27 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     @Override
-    public int antall() {
+    public int antall() { //antallet ikke-null noder i listen.
         return antall;
     }
 
     @Override
-    public boolean tom() {
+    public boolean tom() { //er listen tom for ikke-null noder?
         if(antall==0){return true;}
         return false;
     }
 
     @Override
-    public boolean leggInn(T verdi) {
+    public boolean leggInn(T verdi) { //metode for aa legge til verdi paa slutten av listen.
         Objects.requireNonNull(verdi, "Null verdier ikke tillatt.");
         if(hode == null && hale == null && antall == 0){
             hode = new Node<>(verdi);
             hale = hode;
             antall++;
         } else{
-            hale.neste = new Node<>(verdi, hale, null);
-            hale = hale.neste;
-            antall++;
+            hale.neste = new Node<>(verdi, hale, null); //instansierer ny node
+            hale = hale.neste; //setter "hale" til aa peke paa denne.
+            antall++; //oppdaterer antall noder.
         }
         return true;
     }
