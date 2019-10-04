@@ -21,7 +21,7 @@ public class Oblig {
         System.out.println(liste2.omvendtString());
 
 
-        //Oppgave 2
+        //Oppgave 2 a)
         String[] s1 = {}, s2 = {"A"}, s3 = {null,"A",null,"B",null};
         DobbeltLenketListe<String> l1 = new DobbeltLenketListe<>(s1);
         DobbeltLenketListe<String> l2 = new DobbeltLenketListe<>(s2);
@@ -30,6 +30,13 @@ public class Oblig {
                 "​ ​"     + l2.omvendtString() +"​ ​" + l3.omvendtString());
 
 
+        //b)
+        DobbeltLenketListe<Integer> liste3 = new DobbeltLenketListe<>();
+        System.out.println(liste3.toString() + "​ ​" + liste3.omvendtString());
+        for(int i = 1; i <= 3; i++)   {
+            liste3.leggInn(i);
+            System.out.println(liste3.toString() + "​ ​" + liste3.omvendtString());
+        }
     }
 
 }
