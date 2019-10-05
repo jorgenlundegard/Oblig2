@@ -43,7 +43,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     // hjelpemetode
     private Node<T> finnNode(int indeks) throws IndexOutOfBoundsException {
-
         if (indeks < antall/2){     // leting starter ved hode og mot høyre
 
             Node current = hode;
@@ -181,7 +180,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public T hent(int indeks) {
 
-        if (tom() == true){ throw new IndexOutOfBoundsException("Listen er tom, denne indeksen finnes ikke");}
+        indeksKontroll(indeks,false);
+        if (indeks >= antall) {throw new IndexOutOfBoundsException("Listen har kun " + antall + " antall elementer. Indeks " + indeks + " er for høy.");}
+        if (tom() == true || indeks < 0){ throw new IndexOutOfBoundsException("Listen er tom, denne indeksen finnes ikke");}
+
         Node funnetNode = finnNode(indeks);
         return ((T) funnetNode.verdi);
 
