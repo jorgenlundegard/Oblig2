@@ -290,12 +290,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public void nullstill() {                   // hode  1  2  3  4  5  6  hale
         // Metode 1
         Node minne = hode.neste;
-        currentNode = minne.neste;
+        currentNode = hode.neste;
         while (currentNode.neste != hale) { // Fjern alt mellom hode og hale
             currentNode.forrige.forrige = null;
-            currentNode.forrige.verdi = null;
-            currentNode.forrige.neste = null;
-
+            currentNode.forrige = null;
+            currentNode.verdi = null;
             currentNode = currentNode.neste;
         }
 
@@ -304,6 +303,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         hale.forrige = null;
         hale.verdi = null;
+
+        fjern(0);
 
         antall = 0;
 
