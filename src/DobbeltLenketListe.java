@@ -48,6 +48,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     // hjelpemetode
     private Node<T> finnNode(int indeks) {
+
+        if (indeks == 0){
+            return hode;
+        }
+
+        if (indeks < antall/2){     // leting starter ved hode og mot høyre
+            for (int i = 0; i < indeks; i++) {
+
+            }
+        }
+        else{                       // leting starter ved hale og mot venstre
+
+        }
         return null;
     }
 
@@ -158,6 +171,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks) {
+
         throw new NotImplementedException();
     }
 
