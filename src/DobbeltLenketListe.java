@@ -45,6 +45,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int hodeIndex;         // hjelpevariable for konstruktoren
     private int haleIndex;
 
+
+    // hjelpemetode
+    private Node<T> finnNode(int indeks) {
+        return null;
+    }
+
+
     public DobbeltLenketListe() {
 
     }
