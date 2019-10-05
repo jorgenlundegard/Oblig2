@@ -3,13 +3,8 @@
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.Comparator;
-import java.util.ConcurrentModificationException;
-import java.util.NoSuchElementException;
-import java.util.StringJoiner;
+import java.util.*;
 
-import java.util.Iterator;
-import java.util.Objects;
 import java.util.function.Predicate;
 
 
@@ -47,19 +42,33 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     // hjelpemetode
-    private Node<T> finnNode(int indeks) {
-
-        if (indeks == 0){
-            return hode;
-        }
+    private Node<T> finnNode(int indeks) throws IndexOutOfBoundsException {
 
         if (indeks < antall/2){     // leting starter ved hode og mot høyre
-            for (int i = 0; i < indeks; i++) {
 
+            Node current = hode;
+            int teller = 0;
+
+            while (current != null) {
+                if (teller == indeks){
+                    return current;
+                }
+                teller++;
+                current = current.neste;
             }
         }
         else{                       // leting starter ved hale og mot venstre
 
+            Node current = hale;
+            int teller = antall;
+
+            while (current != null) {
+                if (teller == indeks){
+                    return current;
+                }
+                teller--;
+                current = current.forrige;
+            }
         }
         return null;
     }
@@ -172,7 +181,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public T hent(int indeks) {
 
-        throw new NotImplementedException();
+        if (tom() == true){ throw new IndexOutOfBoundsException("Listen er tom, denne indeksen finnes ikke");}
+        Node funnetNode = finnNode(indeks);
+        return ((T) funnetNode.verdi);
+
     }
 
     @Override
