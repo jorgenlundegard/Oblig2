@@ -218,19 +218,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
-        if(antall==0){return false;}
-        if(antall==1){
-            if(hode.verdi.equals(verdi)){
+        if (antall==0){return false;}
+        if (antall==1){
+            if (hode.verdi.equals(verdi)){
                 hode = null;
                 hale = null;
                 antall--;
                 return true;
             }
-            else{return false;}
+            else {return false;}
         }
         forrigeNode = hode;
-        while(forrigeNode!=hale){
-            if(forrigeNode.verdi.equals(verdi)){
+        while (forrigeNode!=hale){
+            if (forrigeNode.verdi.equals(verdi)){
                 try {
                     forrigeNode.forrige.neste = forrigeNode.neste;
                 }catch (NullPointerException e){
@@ -243,7 +243,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
             forrigeNode = forrigeNode.neste;
         }
-        if(hale.verdi.equals(verdi)){
+        if (hale.verdi.equals(verdi)){
             hale = hale.forrige;
             hale.neste = null;
             antall--;
@@ -254,17 +254,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T fjern(int indeks) {
-        if(antall == 0){throw new IndexOutOfBoundsException("listen er tom, denne indeksen finnes ikke");}
-        if(indeks<0 || indeks >=antall){throw new IndexOutOfBoundsException();}
+        if (antall == 0){throw new IndexOutOfBoundsException("listen er tom, denne indeksen finnes ikke");}
+        if (indeks < 0 || indeks >= antall) {throw new IndexOutOfBoundsException();}
         T verdi;
         forrigeNode = hode;
-        for(int i = 0; i<indeks; i++){
-            forrigeNode=forrigeNode.neste;
+        for (int i = 0; i < indeks; i++){
+            forrigeNode = forrigeNode.neste;
         }
         verdi = forrigeNode.verdi;
         try {
             forrigeNode.neste.forrige = forrigeNode.forrige;
-        }catch (NullPointerException e){
+        } catch (NullPointerException e){
             try {
                 hale = hale.forrige;
                 hale.neste = null;
@@ -286,9 +286,27 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     }
 
-    @Override
-    public void nullstill() {
-        throw new NotImplementedException();
+    @Override                                   //       m  c
+    public void nullstill() {                   // hode  1  2  3  4  5  6  hale
+        // Metode 1
+        Node minne = hode.neste;
+        currentNode = minne.neste;
+        while (currentNode.neste != hale) { // Fjern alt mellom hode og hale
+            currentNode.forrige.forrige = null;
+            currentNode.forrige.verdi = null;
+            currentNode.forrige.neste = null;
+
+            currentNode = currentNode.neste;
+        }
+
+        hode.neste = null;
+        hode.verdi = null;
+
+        hale.forrige = null;
+        hale.verdi = null;
+
+        antall = 0;
+
     }
 
     @Override
