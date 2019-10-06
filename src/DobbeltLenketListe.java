@@ -44,12 +44,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     // hjelpemetode
     private Node<T> finnNode(int indeks) throws IndexOutOfBoundsException {
+
+        int teller;
+
         if (indeks < antall/2){     // leting starter ved hode og mot høyre
 
             Node current = hode;
-            int teller = 0;
+            teller = 0;
 
-            while (current != null) {
+            while (current != null) {   // Kjorer gjennom listen til den treffer null som kommer etter hale.
                 if (teller == indeks){
                     return current;
                 }
@@ -57,20 +60,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 current = current.neste;
             }
         }
-        else{                       // leting starter ved hale og mot venstre
+        else{                       // Leting starter ved hale og mot venstre
 
             Node current = hale;
-            int teller = antall;
+            teller = antall - 1;    // Telleren maa ha antall minus 1 fordi man teller med 0.
 
-            while (current != null) {
-                if (teller == indeks){ // TODO: antallet i teller stemmer ikke overens med indeks..
+            while (current != null) { // Kjorer gjennom hele listen baklengs til den treffer null som kommer foer hode.
+                if (teller == indeks){
                     return current;
                 }
                 teller--;
                 current = current.forrige;
             }
         }
-        return null;
+        return null;                // Returnerer null dersom ikke funnet.
     }
 
 
@@ -136,7 +139,28 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Liste<T> subliste(int fra, int til){
-        throw new NotImplementedException();
+
+        fratilKontroll(antall, fra, til);
+
+        DobbeltLenketListe<T> nyListe = new DobbeltLenketListe<>();
+        currentNode = hode;
+        int teller = 0;
+
+        while (currentNode!=null){
+            if (teller >= fra){
+                if (teller == til){return nyListe;}
+                nyListe.leggInn(currentNode.verdi);
+            }
+            teller++;
+            currentNode = currentNode.neste;
+        }
+        return nyListe;
+    }
+
+    private static void fratilKontroll(int antall, int fra, int til){
+        if (fra < 0) {throw new IndexOutOfBoundsException ("fra(" + fra + ") er negativ!");}
+        if (til > antall) {throw new IndexOutOfBoundsException ("til(" + til + ") > antall noder(" + antall + ")");}
+        if (fra > til) {throw new IllegalArgumentException ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");}
     }
 
     @Override
@@ -214,7 +238,25 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        throw new NotImplementedException();
+        if ((indeks < 0) || (indeks > antall)) { throw new IndexOutOfBoundsException("Indeks " + indeks + " er ikke gyldig.");}
+        indeksKontroll(indeks, false);
+        if (nyverdi == null) { throw new NullPointerException("Nyverdi kan ikke vaere 'null'");}
+
+        T gammelVerdi;
+        int teller = 0;
+        currentNode = hode;
+
+        while (teller < antall) {
+            if (teller == indeks) {
+                gammelVerdi = currentNode.verdi;
+                currentNode.verdi = nyverdi;
+                endringer++;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            return gammelVerdi;
+            }
+            currentNode = currentNode.neste;
+            teller++;
+        }
+        return null;
     }
 
     @Override
