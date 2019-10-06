@@ -42,13 +42,25 @@ public class Oblig {
         System.out.println("\nOppgave 3:");
         Character[] c = {'A','B','C','D','E','F','G','H','I','J',};
         DobbeltLenketListe<Character> listeo3 = new DobbeltLenketListe<>(c);
-        System.out.println(listeo3.subliste(3,8));  // [D, E, F, G, H]
+        System.out.println("Antall: " + listeo3.antall());
+        System.out.println(listeo3.hent(0));
+        System.out.println(listeo3.hent(1));
+        System.out.println(listeo3.hent(2));
+        System.out.println(listeo3.hent(3));
+        System.out.println(listeo3.hent(4));
+        System.out.println(listeo3.hent(5));
+        System.out.println(listeo3.hent(6));
+        System.out.println(listeo3.hent(7));
+        System.out.println(listeo3.hent(8));
+        System.out.println(listeo3.hent(9));
+        /*System.out.println(listeo3.subliste(3,8));  // [D, E, F, G, H]
         System.out.println(listeo3.subliste(5,5));  // []
         System.out.println(listeo3.subliste(8,liste.antall()));  // [I, J]
-        // System.out.println(liste.subliste(0,11));  // skal kaste unntak
+        System.out.println(liste.subliste(0,11));  // skal kaste unntak*/
 
 
         //Oppgave 6
+        System.out.println("Oppgave 6:");
         l1 = new DobbeltLenketListe<>();
         l1.leggInn("A");
         System.out.println(l1.toString());

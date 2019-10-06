@@ -210,7 +210,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (tom() == true || indeks < 0){ throw new IndexOutOfBoundsException("Listen er tom, denne indeksen finnes ikke");}
 
         Node funnetNode = finnNode(indeks);
-        return ((T) funnetNode.verdi); // TODO: krasjer her i test
+
+        return ((T)funnetNode.verdi); // TODO: krasjer her i test
 
     }
 
