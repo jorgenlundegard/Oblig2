@@ -63,7 +63,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             int teller = antall;
 
             while (current != null) {
-                if (teller == indeks){
+                if (teller == indeks){ // TODO: antallet i teller stemmer ikke overens med indeks..
                     return current;
                 }
                 teller--;
@@ -186,7 +186,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (tom() == true || indeks < 0){ throw new IndexOutOfBoundsException("Listen er tom, denne indeksen finnes ikke");}
 
         Node funnetNode = finnNode(indeks);
-        return ((T) funnetNode.verdi);
+        return ((T) funnetNode.verdi); // TODO: krasjer her i test
 
     }
 
