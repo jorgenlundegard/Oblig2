@@ -53,10 +53,10 @@ public class Oblig {
         System.out.println(listeo3.hent(7));
         System.out.println(listeo3.hent(8));
         System.out.println(listeo3.hent(9));
-        /*System.out.println(listeo3.subliste(3,8));  // [D, E, F, G, H]
+        System.out.println(listeo3.subliste(3,8));  // [D, E, F, G, H]
         System.out.println(listeo3.subliste(5,5));  // []
-        System.out.println(listeo3.subliste(8,liste.antall()));  // [I, J]
-        System.out.println(liste.subliste(0,11));  // skal kaste unntak*/
+        System.out.println(listeo3.subliste(8,listeo3.antall()));  // [I, J]
+        System.out.println(listeo3.subliste(0,11));  // skal kaste unntak*/
 
 
         //Oppgave 6
