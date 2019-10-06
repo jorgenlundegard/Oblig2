@@ -211,7 +211,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         Node funnetNode = finnNode(indeks);
 
-        return ((T)funnetNode.verdi); // TODO: krasjer her i test
+        return ((T)funnetNode.verdi); 
 
     }
 
