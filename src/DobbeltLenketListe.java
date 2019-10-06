@@ -180,12 +180,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if(hode == null && hale == null && antall == 0){
             hode = new Node<>(verdi);
             hale = hode;
-            antall++;
         } else{
             hale.neste = new Node<>(verdi, hale, null); //instansierer ny node
             hale = hale.neste; //setter "hale" til aa peke paa denne.
-            antall++; //oppdaterer antall noder.
         }
+        antall++;
+        endringer++;
         return true;
     }
 
@@ -405,11 +405,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public Iterator<T> iterator() {
-        throw new NotImplementedException();
+        return new Iterator<T>() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public T next() {
+                return null;
+            }
+        };
     }
 
     public Iterator<T> iterator(int indeks) {
-        throw new NotImplementedException();
+        indeksKontroll(indeks,false);
+        return new DobbeltLenketListeIterator(indeks);
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T>
@@ -425,7 +436,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         private DobbeltLenketListeIterator(int indeks){
-            throw new NotImplementedException();
+            denne = finnNode(indeks);   //starter på indeks
+            fjernOK = false;  // blir sann når next() kalles
+            iteratorendringer = endringer;  // teller endringer
         }
 
         @Override
@@ -435,7 +448,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next(){
-            throw new NotImplementedException();
+            if(endringer!=iteratorendringer){
+                throw new ConcurrentModificationException();
+            }else if(!hasNext()){
+                throw new NoSuchElementException();
+            }
+            fjernOK = true;
+            denne = denne.neste;
+            return denne.verdi;
         }
 
         @Override
@@ -448,6 +468,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
         throw new NotImplementedException();
     }
+
 
 } // class DobbeltLenketListe
 
