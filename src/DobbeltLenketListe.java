@@ -44,12 +44,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     // hjelpemetode
     private Node<T> finnNode(int indeks) throws IndexOutOfBoundsException {
-        if (indeks < antall/2){     // leting starter ved hode og mot høyre
+        if (indeks<antall/2 && indeks>-1){     // leting starter ved hode og mot høyre
 
             Node current = hode;
             int teller = 0;
 
-            while (current != null) {
+            while (teller != antall/2) {
                 if (teller == indeks){
                     return current;
                 }
@@ -57,13 +57,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 current = current.neste;
             }
         }
-        else{                       // leting starter ved hale og mot venstre
+        else if(indeks>=(antall/2) && indeks<antall){                       // leting starter ved hale og mot venstre
 
             Node current = hale;
             int teller = antall;
 
-            while (current != null) {
-                if (teller == indeks){ // TODO: antallet i teller stemmer ikke overens med indeks..
+            while (teller >= antall/2) {
+                if (teller == indeks + 1){ // TODO: antallet i teller stemmer ikke overens med indeks..
                     return current;
                 }
                 teller--;
@@ -186,7 +186,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (tom() == true || indeks < 0){ throw new IndexOutOfBoundsException("Listen er tom, denne indeksen finnes ikke");}
 
         Node funnetNode = finnNode(indeks);
-        return ((T) funnetNode.verdi); // TODO: krasjer her i test
+
+        return ((T)funnetNode.verdi); // TODO: krasjer her i test
 
     }
 
