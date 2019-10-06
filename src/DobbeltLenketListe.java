@@ -5,6 +5,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
 
+import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
 
@@ -286,27 +287,43 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     }
 
-    @Override                                   //       m  c
-    public void nullstill() {                   // hode  1  2  3  4  5  6  hale
+    @Override
+    public void nullstill() {
+
+        long startTime = System.nanoTime();
+
         // Metode 1
-        Node minne = hode.neste;
         currentNode = hode.neste;
-        while (currentNode.neste != hale) { // Fjern alt mellom hode og hale
+        while (currentNode.neste != hale) { // Fjerner alt mellom hode og hale
             currentNode.forrige.forrige = null;
             currentNode.forrige = null;
             currentNode.verdi = null;
             currentNode = currentNode.neste;
         }
 
-        hode.neste = null;
+        hode.neste = null; // Nuller ut hode
         hode.verdi = null;
 
-        hale.forrige = null;
+        hale.forrige = null; // Nuller ut hale
         hale.verdi = null;
 
-        fjern(0);
+        fjern(0); // Fjerner siste null-element
 
         antall = 0;
+
+        // Metode to
+        /*
+        while (antall != 0){
+            fjern(0);
+        }
+        */
+
+        long endTime = System.nanoTime();
+        long timeElapsed = endTime - startTime;
+        System.out.println("Nanosekunder: " + timeElapsed);
+        // Metode 1 utførtes på 67698 nanosekunder
+        // Metode 2 utførtes på 210489 nanosekunder, betraktelig mye lenger tid.
+
 
     }
 
