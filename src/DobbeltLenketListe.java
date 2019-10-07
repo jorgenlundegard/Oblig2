@@ -233,7 +233,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         Node funnetNode = finnNode(indeks);
 
-        return ((T)funnetNode.verdi); 
+        return ((T)funnetNode.verdi);
 
     }
 
@@ -512,7 +512,33 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     } // class DobbeltLenketListeIterator
 
+
+    private static <T> void swap(T[] a, int i, int j) {
+        if (i != j) {
+            T temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+        }
+    }
+
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) { //TODO halp pleeas
+        /*
+        for (int i = 0; i < liste.antall() - 1; i++) {
+            // find index of smallest element
+            int smallest = i;
+            for (int j = i + 1; j < liste.antall(); j++) {
+                if (liste[j].compareTo(liste[smallest])<=0) {
+                    smallest = j;
+                }
+            }
+
+            swap(liste, i, smallest);  // swap smallest to front
+        }/*
+
+
+
+
+
         /*public int compare(Object n1, Object n2){
             return n1.verdi
         }*/

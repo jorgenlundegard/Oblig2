@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
@@ -5,7 +7,7 @@ public class Oblig {
 
     public static void main(String[] args) {
         // Oppgave 1
-
+        /*
 
         Liste<Integer> listetest = new DobbeltLenketListe<>(new Integer[]{1});
         System.out.println(listetest.antall() + "  " + listetest.tom());
@@ -60,7 +62,7 @@ public class Oblig {
         System.out.println(listeo3.subliste(8, listeo3.antall()));  // [I, J]
         //System.out.println(listeo3.subliste(0,11));  // skal kaste unntak*/
 
-
+        /*
         //Oppgave 6
         System.out.println("Oppgave 6:");
         l1 = new DobbeltLenketListe<>();
@@ -101,7 +103,29 @@ public class Oblig {
         i1 = listeo9b.iterator();
         i1.next();
         i1.remove();
-        i1.remove();
+        i1.remove(); */
+
+        // Oppgave 10
+        System.out.println("\nOppgave 10");
+        String[] navnn = {"Lars","Anders","Bodil","Kari","Per","Berit"};
+
+        Liste<String> liste1 = new DobbeltLenketListe<>(navnn);
+        //Liste<String> liste2 = new TabellListe<>(navn);
+        //Liste<String> liste3 = new EnkeltLenketListe<>(navn);
+
+        DobbeltLenketListe.sorter(liste1, Comparator.naturalOrder());
+        //DobbeltLenketListe.sorter(liste2, Comparator.naturalOrder());
+        //DobbeltLenketListe.sorter(liste3, Comparator.naturalOrder());
+
+        System.out.println(liste1);  // [Anders, Berit, Bodil, Kari, Lars, Per]
+        //System.out.println(liste2);  // [Anders, Berit, Bodil, Kari, Lars, Per]
+        //System.out.println(liste3);  // [Anders, Berit, Bodil, Kari, Lars, Per]
+
+        // Tabellen navn er upåvirket:
+        System.out.println(Arrays.toString(navnn));
+        // [Lars, Anders, Bodil, Kari, Per, Berit]
+
+
 
     }
 
