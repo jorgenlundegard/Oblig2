@@ -521,30 +521,27 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
     }
 
-    public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) { //TODO halp pleeas
-        /*
-        for (int i = 0; i < liste.antall() - 1; i++) {
-            // find index of smallest element
-            int smallest = i;
-            for (int j = i + 1; j < liste.antall(); j++) {
-                if (liste[j].compareTo(liste[smallest])<=0) {
-                    smallest = j;
-                }
-            }
+    private static <T> void bytt(Liste<T> liste, int i, int j){
 
-            swap(liste, i, smallest);  // swap smallest to front
-        }/*
+        T minst = liste.hent(i);
+        T storst = liste.hent(j);
 
-
-
-
-
-        /*public int compare(Object n1, Object n2){
-            return n1.verdi
-        }*/
+        liste.oppdater(i, storst);
+        liste.oppdater(j, minst);
     }
 
+    public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
 
+        for (int i = 0; i < liste.antall(); i++){           // Kjorer gjennom alle elementene.
+
+            for (int j = 0; j < liste.antall(); j++){       // Kjorer gjennom alle elementene en gang til til sammenlikning.
+
+                if((c.compare(liste.hent(i), liste.hent(j))) < 0){      // Gir true naar i < j, for da blir det -1 < 0.
+                    bytt(liste, i, j);                      // Bytter
+                }
+            }
+        }
+    }
 } // class DobbeltLenketListe
 
 
