@@ -501,8 +501,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 try {
                     denne.forrige.forrige.neste = denne;
                     denne.forrige = denne.forrige.forrige;
-                }catch(NullPointerException e){             //Redd for at dette går som "juks"
-                    throw new IllegalStateException();      //Fikk feil type unntak i testen, så bare catcher det og kaster riktig type? xD
+                }catch(NullPointerException e){             //TODO: Redd for at dette går som "juks"
+                    throw new IllegalStateException();      //TODO: Fikk feil type unntak i testen, så bare catcher det og kaster riktig type istedet? xD
                 }
             }
             iteratorendringer++;
