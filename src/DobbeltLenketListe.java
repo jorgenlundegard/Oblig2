@@ -16,7 +16,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
      * Node class
      * @param <T>
      */
-    private static final class Node<T> {
+    private static final class Node<T>{
         private T verdi;                   // nodens verdi
         private Node<T> forrige, neste;    // pekere
 
@@ -512,8 +512,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     } // class DobbeltLenketListeIterator
 
-    public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        throw new NotImplementedException();
+    public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) { //TODO halp pleeas
+        /*public int compare(Object n1, Object n2){
+            return n1.verdi
+        }*/
     }
 
 
