@@ -1,14 +1,6 @@
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
-
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.*;
-
-import java.util.concurrent.TimeUnit;
-import java.util.function.Predicate;
-
-
 
 public class DobbeltLenketListe<T> implements Liste<T> {
 
@@ -33,7 +25,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     // instansvariabler
-    private Node<T> hode;          // Peker til den første i listen
+    private Node<T> hode;          // Peker til den forste i listen
     private Node<T> hale;          // Peker til den siste i listen
     private Node<T> forrigeNode;
     private Node<T> currentNode;
@@ -50,7 +42,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         int teller;
 
-        if (indeks < antall/2){     // Leting starter ved hode og mot høyre
+        if (indeks < antall/2){     // Leting starter ved hode og mot hoyre
 
             Node current = hode;
             teller = 0;
@@ -196,7 +188,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public void leggInn(int indeks, T verdi) {
         int teller=0;
         if (verdi == null) {throw new NullPointerException("verdi kan ikke vaere null");}
-        if (indeks<0 || indeks>antall) { //antall vil alltid være siste indeks + 1
+        if (indeks<0 || indeks>antall) { //antall vil alltid vaere siste indeks + 1
             throw new IndexOutOfBoundsException();
         }
         if (antall==0){ //tom liste
@@ -229,7 +221,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public T hent(int indeks) {
 
         indeksKontroll(indeks,false);
-        if (indeks >= antall) {throw new IndexOutOfBoundsException("Listen har kun " + antall + " antall elementer. Indeks " + indeks + " er for høy.");}
+        if (indeks >= antall) {throw new IndexOutOfBoundsException("Listen har kun " + antall + " antall elementer. Indeks " + indeks + " er for hoy.");}
         if (tom() == true || indeks < 0) {throw new IndexOutOfBoundsException("Listen er tom, denne indeksen finnes ikke");}
 
         Node funnetNode = finnNode(indeks);
@@ -392,8 +384,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         long endTime = System.nanoTime();
         long timeElapsed = endTime - startTime;
         System.out.println("Nanosekunder: " + timeElapsed);
-        // Metode 1 utførtes på 67698 nanosekunder
-        // Metode 2 utførtes på 210489 nanosekunder, betraktelig mye lenger tid.
+        // Metode 1 utfortes paa 67698 nanosekunder
+        // Metode 2 utfortes paa 210489 nanosekunder, betraktelig mye lenger tid.
 
 
     }
@@ -448,14 +440,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         private int iteratorendringer;
 
         private DobbeltLenketListeIterator() {
-            denne = hode;     // p starter på den første i listen
-            fjernOK = false;  // blir sann når next() kalles
+            denne = hode;     // p starter paa den forste i listen
+            fjernOK = false;  // blir sann naar next() kalles
             iteratorendringer = endringer;  // teller endringer
         }
 
         private DobbeltLenketListeIterator(int indeks){
-            denne = finnNode(indeks);   //starter på indeks
-            fjernOK = false;  // blir sann når next() kalles
+            denne = finnNode(indeks);   //starter paa indeks
+            fjernOK = false;  // blir sann naar next() kalles
             iteratorendringer = endringer;  // teller endringer
         }
 
@@ -480,7 +472,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public void remove() {
-            //TODO: Fra oppgaven: Hvis det ikke er tilatt å kalle metoden, skal det kastes IllegalStateException. Ingen info om når det ikke skal være tillatt.
+            //TODO: Fra oppgaven: Hvis det ikke er tilatt aa kalle metoden, skal det kastes IllegalStateException. Ingen info om naar det ikke skal vaere tillatt.
             if (antall == 0) {
                 throw new IllegalStateException();
             }
@@ -501,8 +493,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 try {
                     denne.forrige.forrige.neste = denne;
                     denne.forrige = denne.forrige.forrige;
-                } catch(NullPointerException e) {             //TODO: Redd for at dette går som "juks"
-                    throw new IllegalStateException();      //TODO: Fikk feil type unntak i testen, så bare catcher det og kaster riktig type istedet? xD
+                } catch(NullPointerException e) {             //TODO: Redd for at dette gaar som "juks"
+                    throw new IllegalStateException();        //TODO: Fikk feil type unntak i testen, saa bare catcher det og kaster riktig type istedet? xD
                 }
             }
             iteratorendringer++;
@@ -522,18 +514,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     private static <T> void bytt(Liste<T> liste, int i, int j){
+        // Legger til variabler
         T minst = liste.hent(i);
         T storst = liste.hent(j);
+
+        // Foretar bytting ved innplassering i liste
         liste.oppdater(i, storst);
         liste.oppdater(j, minst);
     }
 
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-
         for (int i = 0; i < liste.antall(); i++) {          // Kjorer gjennom alle elementene.
-
             for (int j = 0; j < liste.antall(); j++) {      // Kjorer gjennom alle elementene en gang til til sammenlikning.
-
                 if ((c.compare(liste.hent(i), liste.hent(j))) < 0) {      // Gir true naar i < j, for da blir det -1 < 0.
                     bytt(liste, i, j);                      // Bytter
                 }
