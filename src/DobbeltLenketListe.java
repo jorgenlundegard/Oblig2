@@ -41,7 +41,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int hodeIndex;         // hjelpevariable for konstruktoren
     private int haleIndex;
 
-
+    public int getEndringer(){ //TODO: fjern denne.
+        return endringer;
+    }
     // hjelpemetode
     private Node<T> finnNode(int indeks) throws IndexOutOfBoundsException {
 
@@ -268,6 +270,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 hode = null;
                 hale = null;
                 antall--;
+                endringer++;
                 return true;
             }
             else {return false;}
@@ -283,6 +286,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 }
                 forrigeNode.neste.forrige = forrigeNode.forrige;
                 antall--;
+                endringer++;
                 return true;
             }
             forrigeNode = forrigeNode.neste;
@@ -291,6 +295,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hale = hale.forrige;
             hale.neste = null;
             antall--;
+            endringer++;
             return true;
         }
         return false;
@@ -306,26 +311,28 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             forrigeNode = forrigeNode.neste;
         }
         verdi = forrigeNode.verdi;
-        try {
+        try {//er elementet hale?
             forrigeNode.neste.forrige = forrigeNode.forrige;
         } catch (NullPointerException e){
-            try {
+            try {//har listen kun en Node?
                 hale = hale.forrige;
                 hale.neste = null;
             }catch (NullPointerException E){ //hverken forrige eller neste finnes
                 hale = null;
                 hode = null;
                 antall--;
+                endringer++;
                 return verdi;
             }
         }
-        try {
+        try { //er elementet hode?
             forrigeNode.forrige.neste = forrigeNode.neste;
         }catch (NullPointerException e){
             hode = hode.neste;
             hode.forrige = null;
         }
         antall--;
+        endringer++;
         return verdi;
 
     }
@@ -405,17 +412,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            @Override
-            public boolean hasNext() {
-                return false;
-            }
-
-            @Override
-            public T next() {
-                return null;
-            }
-        };
+        return new DobbeltLenketListeIterator();
     }
 
     public Iterator<T> iterator(int indeks) {
@@ -443,24 +440,49 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public boolean hasNext(){
-            return denne != null;
+            return (denne != null);
         }
 
         @Override
         public T next(){
+            T verdi;
             if(endringer!=iteratorendringer){
                 throw new ConcurrentModificationException();
             }else if(!hasNext()){
                 throw new NoSuchElementException();
             }
             fjernOK = true;
+            verdi = denne.verdi;
             denne = denne.neste;
-            return denne.verdi;
+            return verdi;
+
         }
 
         @Override
         public void remove(){
-            throw new NotImplementedException();
+            //TODO: Fra oppgaven: Hvis det ikke er tilatt å kalle metoden, skal det kastes IllegalStateException. Ingen info om når det ikke skal være tillatt.
+            if(antall==0){
+                throw new IllegalStateException();
+            }
+            if(endringer!=iteratorendringer){
+                throw new ConcurrentModificationException();
+            }
+            fjernOK = false;
+            if(antall==1){
+                hode = null;
+                hale = null;
+            } else if(denne == null){
+                hale = hale.forrige;
+                hale.neste = null;
+            } else if(denne.forrige == hode){
+                hode = hode.neste;
+                hode.forrige = null;
+            }else{
+                denne.forrige.forrige.neste = denne;
+                denne.forrige = denne.forrige.forrige;
+            }
+            antall--;
+            endringer++;
         }
 
     } // class DobbeltLenketListeIterator

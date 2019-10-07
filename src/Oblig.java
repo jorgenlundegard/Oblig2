@@ -62,22 +62,32 @@ public class Oblig {
         //Oppgave 6
         System.out.println("Oppgave 6:");
         l1 = new DobbeltLenketListe<>();
+        System.out.println(l1.toString() + l1.getEndringer());
         l1.leggInn("A");
-        System.out.println(l1.toString());
+        System.out.println(l1.toString() + l1.getEndringer());
         l1.fjern(0);
-        System.out.println(l1.toString());
+        System.out.println(l1.toString() + l1.getEndringer());
 
         l1.leggInn("A");
 
-        System.out.println(l1.toString());
+        System.out.println(l1.toString() + l1.getEndringer());
 
         //Oppgave 8
         String[] navn = {"Lars","Anders","Bodil","Kari","Per","Berit"};
         Liste<String> listeo8 = new DobbeltLenketListe<>(navn);
 
-        listeo8.forEach(o8 -> System.out.print(o8 + " "));
+        for (String o8 : listeo8) System.out.print(o8 + " ");
         System.out.println();
-        for (String o8 : liste) System.out.print(o8 + " ");   //funker ikke
+        listeo8.forEach(o8 -> System.out.print(o8 + " "));
+
+        //Oppgave 9
+        DobbeltLenketListe<String> listeo9 = new DobbeltLenketListe<>(new String[]
+                {"Birger","Lars","Anders","Bodil","Kari","Per","Berit"});
+        listeo9.fjernHvis(navnet -> navnet.charAt(0) =='B'); // fjerner navn som starter med B
+        System.out.println(liste + "​ ​" + listeo9.omvendtString());
+
+
+
 
 
     }
