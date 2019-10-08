@@ -220,9 +220,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public T hent(int indeks) { // Henter element paa plass indeks.
         indeksKontroll(indeks,false);
         if (indeks >= antall) {throw new IndexOutOfBoundsException("Listen har kun " + antall + " antall elementer. Indeks " + indeks + " er for hoy.");}
-        if (tom() == true || indeks < 0) {throw new IndexOutOfBoundsException("Listen er tom, denne indeksen finnes ikke");}
+        if (tom() || indeks < 0) {throw new IndexOutOfBoundsException("Listen er tom, denne indeksen finnes ikke");}
         Node funnetNode = finnNode(indeks);
-        return ((T)funnetNode.verdi);
+        return (T) funnetNode.verdi;
 
     }
 
