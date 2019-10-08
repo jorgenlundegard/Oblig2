@@ -1,3 +1,12 @@
+/////// GRUPPE                  ///////
+
+//      NAVN:                   STUDENTNUMMER:
+
+//      Mads Andreas Lundbye    s331353
+//      Jørgen Lundegård        TODO: fyll inn her
+
+
+
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 import java.util.*;
@@ -76,6 +85,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
+    //warning "Method will throw an exception when parameter is null, men i oopgaven staar det at metoden skal gjoere dette.
         Objects.requireNonNull(a, "Tabellen er Null!");
         if (a.length==0) {                                        // Spesialtilfelle der tabellen a er tom men ikke null
             hode = null;
@@ -164,17 +174,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean tom() { //er listen tom for ikke-null noder?
-        if (antall==0) {return true;}
-        return false;
+        return antall == 0;
     }
 
     @Override
     public boolean leggInn(T verdi) { //metode for aa legge til verdi paa slutten av listen.
+    //warning "Method will throw an exception when parameter is null, men i oopgaven staar det at metoden skal gjoere dette.
         Objects.requireNonNull(verdi, "Null verdier ikke tillatt.");
         if (hode == null && hale == null && antall == 0) {
             hode = new Node<>(verdi);
             hale = hode;
         } else {
+            assert hale != null;
             hale.neste = new Node<>(verdi, hale, null); //instansierer ny node
             hale = hale.neste; //setter "hale" til aa peke paa denne.
         }
@@ -185,8 +196,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void leggInn(int indeks, T verdi) {
+    //warning "Method will throw an exception when parameter is null, men i oopgaven staar det at metoden skal gjoere dette.
+        Objects.requireNonNull(verdi, "Null verdier ikke tillatt.");
         int teller=0;
-        if (verdi == null) {throw new NullPointerException("verdi kan ikke vaere null");}
         if (indeks<0 || indeks>antall) { //antall vil alltid vaere siste indeks + 1
             throw new IndexOutOfBoundsException();
         }
@@ -200,7 +212,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hale = new Node<>(verdi, hale, null);
             hale.forrige.neste = hale;
         } else{
-            Node<T> nyNode = new Node<>(verdi,finnNode(indeks).forrige,finnNode(indeks));
+            assert finnNode(indeks) != null;
+            Node<T> nyNode = new Node<T>(verdi,finnNode(indeks).forrige,finnNode(indeks));
             nyNode.forrige.neste = nyNode;
             nyNode.neste.forrige = nyNode;
         }
@@ -211,9 +224,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public boolean inneholder(T verdi) {
         int indexTil = indeksTil(verdi);
-        if (indexTil == -1){
-            return false;
-        } else {return true;}
+        return indexTil != -1;
     }
 
     @Override
@@ -250,6 +261,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
+        //warning "Method will throw an exception when parameter is null, men i oopgaven staar det at metoden skal gjoere dette.
         if ((indeks < 0) || (indeks > antall)) { throw new IndexOutOfBoundsException("Indeks " + indeks + " er ikke gyldig.");}
         indeksKontroll(indeks, false);
         if (nyverdi == null) { throw new NullPointerException("Nyverdi kan ikke vaere 'null'");}
@@ -467,9 +479,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public void remove() {
-            //TODO: Fra oppgaven: Hvis det ikke er tilatt aa kalle metoden, skal det kastes IllegalStateException. Ingen info om naar det ikke skal vaere tillatt.
+            IllegalStateException e = new IllegalStateException("Kan ikke kalles paa tom liste.");
             if (antall == 0) {
-                throw new IllegalStateException();
+                throw e;
             }
             if (endringer != iteratorendringer) {
                 throw new ConcurrentModificationException();
@@ -488,8 +500,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 try {
                     denne.forrige.forrige.neste = denne;
                     denne.forrige = denne.forrige.forrige;
-                } catch(NullPointerException e) {             //TODO: Redd for at dette gaar som "juks"
-                    throw new IllegalStateException();        //TODO: Fikk feil type unntak i testen, saa bare catcher det og kaster riktig type istedet? xD
+                } catch(NullPointerException ex) {              //TODO: Redd for at dette gaar som "juks"
+                    throw e;                                    //TODO: Fikk feil type unntak i testen, saa bare catcher det og kaster riktig type istedet? xD
                 }
             }
             iteratorendringer++;
