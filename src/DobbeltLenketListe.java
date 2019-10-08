@@ -3,7 +3,7 @@
 //      NAVN:                   STUDENTNUMMER:
 
 //      Mads Andreas Lundbye    s331353
-//      Jørgen Lundegård        TODO: fyll inn her
+//      Jørgen Lundegård        s331385
 
 
 
