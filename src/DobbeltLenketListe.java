@@ -355,7 +355,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     @Override
-    public void nullstill() { 
+    public void nullstill() {
 
         //long startTime = System.nanoTime();
 
