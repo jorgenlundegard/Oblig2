@@ -104,28 +104,7 @@ public class Oblig {
         i1.next();
         i1.remove();
         i1.remove(); */
-
-        // Oppgave 10
-        System.out.println("\nOppgave 10");
-        String[] navnn = {"Lars","Anders","Bodil","Kari","Per","Berit"};
-
-        Liste<String> liste1 = new DobbeltLenketListe<>(navnn);
-        //Liste<String> liste2 = new TabellListe<>(navn);
-        //Liste<String> liste3 = new EnkeltLenketListe<>(navn);
-
-        DobbeltLenketListe.sorter(liste1, Comparator.naturalOrder());
-        //DobbeltLenketListe.sorter(liste2, Comparator.naturalOrder());
-        //DobbeltLenketListe.sorter(liste3, Comparator.naturalOrder());
-
-        System.out.println(liste1);  // [Anders, Berit, Bodil, Kari, Lars, Per]
-        //System.out.println(liste2);  // [Anders, Berit, Bodil, Kari, Lars, Per]
-        //System.out.println(liste3);  // [Anders, Berit, Bodil, Kari, Lars, Per]
-
-        // Tabellen navn er upåvirket:
-        System.out.println(Arrays.toString(navnn));
-        // [Lars, Anders, Bodil, Kari, Per, Berit]
-
-
+        
 
     }
 

@@ -38,29 +38,28 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return endringer;
     }
     // hjelpemetode
-    private Node<T> finnNode(int indeks) throws IndexOutOfBoundsException {
+    private Node finnNode(int indeks) throws IndexOutOfBoundsException {
 
         int teller;
 
-        if (indeks < antall/2){     // Leting starter ved hode og mot hoyre
+        if (indeks < (antall / 2)) {     // Leting starter ved hode og mot hoyre
 
             Node current = hode;
             teller = 0;
 
-            while (current != null) {   // Kjorer gjennom listen til den treffer null som kommer etter hale.
-                if (teller == indeks){
+            while (current != null) {   // Kjorer gjennom listen til den treffer null som kommer etter hale, men returnerer for det.
+                if (teller == indeks) {
                     return current;
                 }
                 teller++;
                 current = current.neste;
             }
-        }
-        else {                       // Leting starter ved hale og mot venstre
+        } else {                        // Leting starter ved hale og mot venstre
 
             Node current = hale;
-            teller = antall - 1;    // Telleren maa ha antall minus 1 fordi man teller med 0.
+            teller = antall - 1;        // Telleren maa ha antall minus 1 fordi man teller med '0' som forste.
 
-            while (current != null) { // Kjorer gjennom hele listen baklengs til den treffer null som kommer foer hode.
+            while (current != null) {   // Kjorer gjennom hele listen baklengs til den treffer null som kommer foer hode, men returnerer for det.
                 if (teller == indeks) {
                     return current;
                 }
@@ -68,7 +67,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 current = current.forrige;
             }
         }
-        return null;                // Returnerer null dersom ikke funnet.
+        return null;                    // Returnerer null dersom ikke funnet.
     }
 
 
@@ -78,10 +77,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public DobbeltLenketListe(T[] a) {
         Objects.requireNonNull(a, "Tabellen er Null!");
-        if (a.length==0) {                                       //Spesialtilfelle der tabellen a er tom men ikke null
+        if (a.length==0) {                                        // Spesialtilfelle der tabellen a er tom men ikke null
             hode = null;
             hale = null;
-        } else if (a.length==1){                                  //Spesialtilfelle der tabellen a kun har 1 element
+        } else if (a.length==1){                                  // Spesialtilfelle der tabellen a kun har 1 element
             if (a[0]==null){
                 hode = null;
                 hale = null;
@@ -133,16 +132,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
     }
 
-    public Liste<T> subliste(int fra, int til){
+    public Liste<T> subliste(int fra, int til) {        // Lager en  liste fra og med indeks 'fra' til men ikke inkludert indeks 'til'.
 
-        fratilKontroll(antall, fra, til);
+        fratilKontroll(antall, fra, til);               // Skjekker at indeksene har lovlige verdier.
 
         DobbeltLenketListe<T> nyListe = new DobbeltLenketListe<>();
         currentNode = hode;
         int teller = 0;
 
-        while (currentNode!=null) {
-            if (teller >= fra){
+        while (currentNode != null) {                     // Kjorer gjennom hele listen til den blir stoppet, eller gaar forbi hale.
+            if (teller >= fra) {
                 if (teller == til) {return nyListe;}
                 nyListe.leggInn(currentNode.verdi);
             }
@@ -218,14 +217,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     @Override
-    public T hent(int indeks) {
-
+    public T hent(int indeks) { // Henter element paa plass indeks.
         indeksKontroll(indeks,false);
         if (indeks >= antall) {throw new IndexOutOfBoundsException("Listen har kun " + antall + " antall elementer. Indeks " + indeks + " er for hoy.");}
         if (tom() == true || indeks < 0) {throw new IndexOutOfBoundsException("Listen er tom, denne indeksen finnes ikke");}
-
         Node funnetNode = finnNode(indeks);
-
         return ((T)funnetNode.verdi);
 
     }
@@ -262,12 +258,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         int teller = 0;
         currentNode = hode;
 
-        while (teller < antall) {
-            if (teller == indeks) {
-                gammelVerdi = currentNode.verdi;
+        while (teller < antall) {       // Gaar gjennom hele listen
+            if (teller == indeks) {     // Finner rett indeks
+                gammelVerdi = currentNode.verdi;    // Tar var paa gammel verdi som ellers blir overskrevet i neste linje.
                 currentNode.verdi = nyverdi;
                 endringer++;
-                return gammelVerdi;
+                return gammelVerdi;     // Returnerer verdien her naar funnet, ikke lenger noen poeng aa fortsette gjennom hele listen.
             }
             currentNode = currentNode.neste;
             teller++;
@@ -289,7 +285,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             else {return false;}
         }
         forrigeNode = hode;
-        while (forrigeNode != hale){
+        while (forrigeNode != hale) {
             if (forrigeNode.verdi.equals(verdi)) {
                 try {
                     forrigeNode.forrige.neste = forrigeNode.neste;
@@ -433,8 +429,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return new DobbeltLenketListeIterator(indeks);
     }
 
-    private class DobbeltLenketListeIterator implements Iterator<T>
-    {
+    private class DobbeltLenketListeIterator implements Iterator<T> {
         private Node<T> denne;
         private boolean fjernOK;
         private int iteratorendringer;
@@ -504,15 +499,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     } // class DobbeltLenketListeIterator
 
-
-    private static <T> void swap(T[] a, int i, int j) {
-        if (i != j) {
-            T temp = a[i];
-            a[i] = a[j];
-            a[j] = temp;
-        }
-    }
-
     private static <T> void bytt(Liste<T> liste, int i, int j){
         // Legger til variabler
         T minst = liste.hent(i);
@@ -524,6 +510,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
+        long startTime = System.nanoTime();
+
         for (int i = 0; i < liste.antall(); i++) {          // Kjorer gjennom alle elementene.
             for (int j = 0; j < liste.antall(); j++) {      // Kjorer gjennom alle elementene en gang til til sammenlikning.
                 if ((c.compare(liste.hent(i), liste.hent(j))) < 0) {      // Gir true naar i < j, for da blir det -1 < 0.
@@ -531,5 +519,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 }
             }
         }
+        long endTime = System.nanoTime();
+        long timeElapsed = endTime - startTime;
+        System.out.println("Nanosekunder: " + timeElapsed);
     }
 } // class DobbeltLenketListe
