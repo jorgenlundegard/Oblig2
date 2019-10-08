@@ -230,7 +230,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (tom() || indeks < 0) {throw new IndexOutOfBoundsException("Listen er tom, denne indeksen finnes ikke");}
         Node<T> funnetNode = finnNode(indeks);
         assert funnetNode != null;
-        return (T)funnetNode.verdi;
+        return funnetNode.verdi;
 
     }
 
@@ -336,7 +336,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 hale = hale.forrige;
                 hale.neste = null;
             }catch (NullPointerException E) { //hverken forrige eller neste finnes
-                hale = null;
                 hode = null;
                 antall--;
                 endringer++;
