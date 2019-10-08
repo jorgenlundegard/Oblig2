@@ -43,17 +43,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int hodeIndex;         // Hjelpevariable for konstruktoren
     private int haleIndex;
 
-    public int getEndringer() { //TODO: fjern denne.
-        return endringer;
-    }
+
     // hjelpemetode
-    private Node finnNode(int indeks) throws IndexOutOfBoundsException {
+    private Node<T> finnNode(int indeks) throws IndexOutOfBoundsException {
 
         int teller;
 
         if (indeks < (antall / 2)) {     // Leting starter ved hode og mot hoyre
 
-            Node current = hode;
+            Node<T> current = hode;
             teller = 0;
 
             while (current != null) {   // Kjorer gjennom listen til den treffer null som kommer etter hale, men returnerer for det.
@@ -65,7 +63,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
         } else {                        // Leting starter ved hale og mot venstre
 
-            Node current = hale;
+            Node<T> current = hale;
             teller = antall - 1;        // Telleren maa ha antall minus 1 fordi man teller med '0' som forste.
 
             while (current != null) {   // Kjorer gjennom hele listen baklengs til den treffer null som kommer foer hode, men returnerer for det.
@@ -198,7 +196,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public void leggInn(int indeks, T verdi) {
     //warning "Method will throw an exception when parameter is null, men i oopgaven staar det at metoden skal gjoere dette.
         Objects.requireNonNull(verdi, "Null verdier ikke tillatt.");
-        int teller=0;
         if (indeks<0 || indeks>antall) { //antall vil alltid vaere siste indeks + 1
             throw new IndexOutOfBoundsException();
         }
@@ -212,7 +209,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hale = new Node<>(verdi, hale, null);
             hale.forrige.neste = hale;
         } else{
-            assert finnNode(indeks) != null;
             Node<T> nyNode = new Node<T>(verdi,finnNode(indeks).forrige,finnNode(indeks));
             nyNode.forrige.neste = nyNode;
             nyNode.neste.forrige = nyNode;
@@ -232,8 +228,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         indeksKontroll(indeks,false);
         if (indeks >= antall) {throw new IndexOutOfBoundsException("Listen har kun " + antall + " antall elementer. Indeks " + indeks + " er for hoy.");}
         if (tom() || indeks < 0) {throw new IndexOutOfBoundsException("Listen er tom, denne indeksen finnes ikke");}
-        Node funnetNode = finnNode(indeks);
-        return (T) funnetNode.verdi;
+        Node<T> funnetNode = finnNode(indeks);
+        assert funnetNode != null;
+        return (T)funnetNode.verdi;
 
     }
 
@@ -479,8 +476,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public void remove() {
-            IllegalStateException e = new IllegalStateException("Kan ikke kalles paa tom liste.");
-            if (antall == 0) {
+            IllegalStateException e = new IllegalStateException();
+            if (antall == 0 || !fjernOK) {
                 throw e;
             }
             if (endringer != iteratorendringer) {
@@ -497,12 +494,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 hode = hode.neste;
                 hode.forrige = null;
             } else {
-                try {
-                    denne.forrige.forrige.neste = denne;
-                    denne.forrige = denne.forrige.forrige;
-                } catch(NullPointerException ex) {              //TODO: Redd for at dette gaar som "juks"
-                    throw e;                                    //TODO: Fikk feil type unntak i testen, saa bare catcher det og kaster riktig type istedet? xD
-                }
+                denne.forrige.forrige.neste = denne;
+                denne.forrige = denne.forrige.forrige;
             }
             iteratorendringer++;
             endringer++;
