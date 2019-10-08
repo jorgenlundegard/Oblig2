@@ -104,7 +104,7 @@ public class Oblig {
         i1.next();
         i1.remove();
         i1.remove(); */
-        
+
 
     }
 
