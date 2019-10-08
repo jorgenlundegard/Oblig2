@@ -358,7 +358,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public void nullstill() {
 
-        long startTime = System.nanoTime();
+        //long startTime = System.nanoTime();
 
         // Metode 1
         currentNode = hode.neste;
@@ -384,11 +384,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         while (antall != 0){
             fjern(0);
         }
-        */
+
 
         long endTime = System.nanoTime();
         long timeElapsed = endTime - startTime;
-        System.out.println("Nanosekunder: " + timeElapsed);
+        System.out.println("Nanosekunder: " + timeElapsed); */
         // Metode 1 utfortes paa 67698 nanosekunder
         // Metode 2 utfortes paa 210489 nanosekunder, betraktelig mye lenger tid.
 
@@ -515,7 +515,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        long startTime = System.nanoTime();
+        //long startTime = System.nanoTime();
 
         for (int i = 0; i < liste.antall(); i++) {          // Kjorer gjennom alle elementene.
             for (int j = 0; j < liste.antall(); j++) {      // Kjorer gjennom alle elementene en gang til til sammenlikning.
@@ -524,8 +524,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 }
             }
         }
-        long endTime = System.nanoTime();
+        /*long endTime = System.nanoTime();
         long timeElapsed = endTime - startTime;
-        System.out.println("Nanosekunder: " + timeElapsed);
+        System.out.println("Nanosekunder: " + timeElapsed);*/
     }
 } // class DobbeltLenketListe
